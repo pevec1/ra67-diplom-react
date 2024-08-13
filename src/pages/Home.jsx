@@ -1,4 +1,6 @@
 import React from 'react'
+import TopSales from "../components/TopSales";
+import CatalogHome from "../components/CatalogHome";
 
 export default function Home() {
   return (
@@ -10,22 +12,23 @@ export default function Home() {
             <h2 className="banner-header">К весне готовы!</h2>
           </div>
           <section className="top-sales">
-            <h2 className="text-center">Хиты продаж!</h2>
+            {/* <h2 className="text-center">Хиты продаж!</h2>
             <div className="preloader">
               <span></span>
               <span></span>
               <span></span>
               <span></span>
-            </div>
+            </div> */}
+            <TopSales />
           </section>
           <section className="catalog">
-            <h2 className="text-center">Каталог</h2>
-            <div className="preloader">
+            {/* <div className="preloader">
               <span></span>
               <span></span>
               <span></span>
               <span></span>
-            </div>
+            </div> */}
+            <CatalogHome />
           </section>
         </div>
       </div>

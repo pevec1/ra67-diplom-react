@@ -6,7 +6,7 @@ export default function NotFound() {
       <div className="row">
         <div className="col">
           <div className="banner">
-            <img src="./src/img/banner.jpg" className="img-fluid" alt="К весне готовы!"/>
+            <img src="../src/img/banner.jpg" className="img-fluid" alt="К весне готовы!"/>
             <h2 className="banner-header">К весне готовы!</h2>
           </div>
           <section className="top-sales">

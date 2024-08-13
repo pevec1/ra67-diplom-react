@@ -8,7 +8,7 @@ export default function Header() {
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <a className="navbar-brand" href="/">
-            <img src="./src/img/header-logo.png" alt="Bosa Noga"/>
+            <img src="../src/img/header-logo.png" alt="Bosa Noga"/>
             </a>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">

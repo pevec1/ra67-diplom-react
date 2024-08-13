@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import valueReducer from "../slices/sliceFilms";
+import valueReducer from "../slices/sliceMag";
 
 export default configureStore({
   reducer: {
-    value: valueReducer,
+    products: valueReducer,
+    category: valueReducer,
+    categories: valueReducer,
   },
 });
