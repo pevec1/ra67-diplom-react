@@ -5,8 +5,9 @@ import { sliceMagRTK } from "../slices/sliceMagRTK";
 export const store = configureStore({
   reducer: {
     [sliceMagRTK.reducerPath]: sliceMagRTK.reducer,
-   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sliceMagRTK.middleware)
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(sliceMagRTK.middleware),
 });
 
 setupListeners(store.dispatch);

@@ -1,33 +1,32 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { unwrapResult } from '@reduxjs/toolkit'
-import { useGetCatQuery,useGetGoodsMutation } from "../slices/sliceMagRTK";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { useGetCatQuery, useGetGoodsMutation } from "../slices/sliceMagRTK";
 
 export default function CatalogHome() {
   const [count, setCount] = useState("");
   const { list = [], isLoadingList } = useGetCatQuery(count);
   const [products, setProducts] = useState([]);
-    const [cat, setCat] = useState([]);
-     const { data = [], isLoading } = useGetGoodsMutation(cat);
- 
+  const [cat, setCat] = useState([]);
+  const { data = [], isLoading } = useGetGoodsMutation(cat);
 
-console.log(list)
-list.map((product) => [product.id].forEach((element, key)=>{
-  console.log(element, key)
+  console.log(list);
+  list.map((product) =>
+    [product.id].forEach((element, key) => {
+      console.log(element, key);
 
-    setCat(element);
-	
-})
-)
-console.log(cat)
-console.log(data)
-// useEffect(() => {
-//   setTimeout(() => {
-//     //setCategory(categories.map((cat) => {fetchCategory1(cat.id)}));
-//   }, 2000)
-  
-// }, []);
+      setCat(element);
+    })
+  );
+  console.log(cat);
+  console.log(data);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     //setCategory(categories.map((cat) => {fetchCategory1(cat.id)}));
+  //   }, 2000)
+
+  // }, []);
 
   if (isLoading === true) {
     return (
@@ -35,11 +34,7 @@ console.log(data)
         <h2 className="text-center">Каталог</h2>
         <ul className="catalog-categories nav justify-content-center">
           <li className="nav-item">
-            <a
-              className="nav-link active"
-              data-cat="all"
-              href="/"
-            >
+            <a className="nav-link active" data-cat="all" href="/">
               Все
             </a>
           </li>
@@ -128,5 +123,5 @@ console.log(data)
         </div>
       </>
     );
-}
+  }
 }

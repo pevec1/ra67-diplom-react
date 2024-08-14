@@ -14,7 +14,7 @@ const initialState = {
   categories: [],
   loading: false,
   error: "",
-}
+};
 
 export const sliceMag = createAppSlice({
   name: "products",
@@ -132,5 +132,6 @@ export const sliceMag = createAppSlice({
   }),
 });
 
-export const { fetchTopSales, fetchCategories, fetchCategory } = sliceMag.actions;
+export const { fetchTopSales, fetchCategories, fetchCategory } =
+  sliceMag.actions;
 export default sliceMag.reducer;

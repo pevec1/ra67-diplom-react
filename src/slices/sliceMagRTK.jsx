@@ -58,5 +58,10 @@ export const sliceMagRTK = createApi({
   }),
 });
 
-export const { useGetTopSalesQuery, useGetCatQuery,useGetGoodsMutation, useAddProductMutation, useDeleteProductMutation } =
-  sliceMagRTK;
+export const {
+  useGetTopSalesQuery,
+  useGetCatQuery,
+  useGetGoodsMutation,
+  useAddProductMutation,
+  useDeleteProductMutation,
+} = sliceMagRTK;

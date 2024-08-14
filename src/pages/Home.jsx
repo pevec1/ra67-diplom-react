@@ -1,14 +1,18 @@
-import React from 'react'
+import React from "react";
 import TopSales from "../components/TopSales";
 import CatalogHome from "../components/CatalogHome";
 
 export default function Home() {
   return (
-        <main className="container">
+    <main className="container">
       <div className="row">
         <div className="col">
           <div className="banner">
-            <img src="./src/img/banner.jpg" className="img-fluid" alt="К весне готовы!"/>
+            <img
+              src="./src/img/banner.jpg"
+              className="img-fluid"
+              alt="К весне готовы!"
+            />
             <h2 className="banner-header">К весне готовы!</h2>
           </div>
           <section className="top-sales">
@@ -33,6 +37,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-
-  )
+  );
 }
