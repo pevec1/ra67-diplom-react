@@ -1,25 +1,13 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTopSales } from "../slices/sliceMag";
+import { useGetTopSalesQuery } from "../slices/sliceMagRTK";
 
 export default function TopSales() {
-  const list = useSelector((state) => state.products);
-   const dispatch = useDispatch();
-         const fetchOneUser = async () => {
-      try {
-        const data = await dispatch(fetchTopSales()).unwrap();
-        console.log("success", data);
-      } catch (err) {
-        console.log("error", `Fetch failed: ${err.message}`);
-      }
-    };
-useEffect(() => {
+  const [count, setCount] = useState("");
+  const { list = [], isLoadingList } = useGetTopSalesQuery(count);
 
-    fetchOneUser();
-  }, []);
-
-console.log(list.products)
+  console.log(list)
   // if (data.length===0) {
   //   return (
   //     <>
@@ -37,7 +25,7 @@ console.log(list.products)
       <>
          <h2 className="text-center">Хиты продаж!</h2>
         <div className="row">
-            {list.products.map((product, id) => (
+            {list.map((product, id) => (
            <div key={id} className="col-4">
              <div className="card">
                 <img

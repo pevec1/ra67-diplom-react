@@ -2,50 +2,26 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from '@reduxjs/toolkit'
-import { fetchTopSales, fetchCategories, fetchCategory } from "../slices/sliceMag";
+import { useGetCatQuery,useGetGoodsMutation } from "../slices/sliceMagRTK";
 
 export default function CatalogHome() {
-  const list = useSelector((state) => state.categories);
-  const full = useSelector((state) => state.category);
-    const [cat, setCat] = useState([{}]);
-  const dispatch = useDispatch();
-          const fetchOneCategory = async () => {
-            try {
-              const data = await dispatch(fetchCategories()).unwrap();
-              console.log("success", data)
-            } catch (err) {
-              console.log("error", `Fetch failed: ${err.message}`);
-            }
-          };
+  const [count, setCount] = useState("");
+  const { list = [], isLoadingList } = useGetCatQuery(count);
+  const [products, setProducts] = useState([]);
+    const [cat, setCat] = useState([]);
+     const { data = [], isLoading } = useGetGoodsMutation(cat);
+ 
 
-          const fetchCategory1 = async (a) => {
-            try {
-              const resultAction = await dispatch(fetchCategory(a)).unwrap();
-              //const originalPromiseResult = unwrapResult(resultAction)
-    console.log("success", setCat([[...cat],resultAction]));// handle result here
-  } catch (rejectedValueOrSerializedError) {
-    console.log(
-      "error",
-      `Fetch failed: ${rejectedValueOrSerializedError.message}`
-    );// handle error here
-  }
-}
-
-useEffect(() => {
-fetchOneCategory();
-list.categories.map((product) => [product.id].map((element, key)=>{
+console.log(list)
+list.map((product) => [product.id].forEach((element, key)=>{
   console.log(element, key)
-  setTimeout(() => {
-    dispatch(fetchCategory(element));
-    setCat([...cat,full.category]);
-  }, 5000)
+
+    setCat(element);
 	
 })
 )
-  }, []);
-
 console.log(cat)
-console.log(full)
+console.log(data)
 // useEffect(() => {
 //   setTimeout(() => {
 //     //setCategory(categories.map((cat) => {fetchCategory1(cat.id)}));
@@ -53,7 +29,7 @@ console.log(full)
   
 // }, []);
 
-  if (list.categories.length===0) {
+  if (isLoading === true) {
     return (
       <>
         <h2 className="text-center">Каталог</h2>
@@ -128,7 +104,7 @@ console.log(full)
           </li>
         </ul>
         <div className="row">
-          {/* {category.map((product, id) => (
+          {data.map((product, id) => (
             <div key={id} className="col-4">
               <div className="card">
                 <img
@@ -148,7 +124,7 @@ console.log(full)
                 </div>
               </div>
             </div>
-          ))} */}
+          ))}
         </div>
       </>
     );
