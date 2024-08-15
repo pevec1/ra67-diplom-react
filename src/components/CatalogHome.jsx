@@ -11,9 +11,14 @@ export default function CatalogHome() {
   const [cat, setCat] = useState([]);
   const [getGoods, isLoading] = useGetGoodsMutation();
   const [getGoodsAll, isLoading2] = useGetGoodsAllMutation();
-
-  const onClick = async (e, id) => {
+  const [isActive, setIsActive] = useState(0);
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+ const onClick = async (e, id, title) => {
     e.preventDefault();
+    setIsActive(title);
     try {
       const data = await getGoods(id).unwrap();
 
@@ -24,7 +29,7 @@ export default function CatalogHome() {
     }
   }; // console.log(getGoods);
   const onClickAll = async (id) => {
-    try {
+   try {
       const data = await getGoodsAll(id).unwrap();
 
       console.log(data);
@@ -34,11 +39,7 @@ export default function CatalogHome() {
     }
   }; // console.log(getGoods);
   console.log(data);
-  function randomIntFromInterval(min, max) {
-    // min and max included
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  useEffect(() => {
+   useEffect(() => {
       onClickAll(randomIntFromInterval(12, 15));
   }, []);
 
@@ -46,33 +47,6 @@ export default function CatalogHome() {
     return (
       <>
         <h2 className="text-center">Каталог</h2>
-        <ul className="catalog-categories nav justify-content-center">
-          <li className="nav-item">
-            <a className="nav-link active" data-cat="all" href="#">
-              Все
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 13)} href="#">
-              Женская обувь
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 12)} href="#">
-              Мужская обувь
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 14)} href="#">
-              Обувь унисекс
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 15)} href="#">
-              Детская обувь
-            </a>
-          </li>
-        </ul>
         <div className="preloader">
           <span></span>
           <span></span>
@@ -88,34 +62,27 @@ export default function CatalogHome() {
         <ul className="catalog-categories nav justify-content-center">
           <li className="nav-item">
             <a
-              className="nav-link active"
+              className={"nav-link" + `${isActive === "all" && " active"}`}
               data-cat="all"
-              onClick={(e) => onClick(e, 12, 13, 14, 15)}
+              onClick={(e) => onClick(e, randomIntFromInterval(12, 15), "all")}
               href="#"
             >
-              Все
+               Все 
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 13)} href="#">
-              Женская обувь
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 12)} href="#">
-              Мужская обувь
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 14)} href="#">
-              Обувь унисекс
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={(e) => onClick(e, 15)} href="#">
-              Детская обувь
-            </a>
-          </li>
+          {data.map((cat, id) => (
+            <li key={id} className="nav-item">
+              <a
+                className={
+                  "nav-link" + `${isActive === cat.title && " active"}`
+                }
+                onClick={(e) => onClick(e, cat.id, cat.title)}
+                href="#"
+              >
+                 {cat.title} 
+              </a>
+            </li>
+          ))}
         </ul>
         <div className="row">
           {products.map((product, id) => (
