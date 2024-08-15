@@ -5,27 +5,27 @@ import { useGetTopSalesQuery } from "../slices/sliceMagRTK";
 
 export default function TopSales() {
   const [count, setCount] = useState("");
-  const { list = [], isLoadingList } = useGetTopSalesQuery(count);
+  const { data = [], isLoadingList } = useGetTopSalesQuery(count);
 
-  console.log(list);
-  // if (data.length===0) {
-  //   return (
-  //     <>
-  //       <h2 className="text-center">Хиты продаж!</h2>
-  //           <div className="preloader">
-  //             <span></span>
-  //             <span></span>
-  //             <span></span>
-  //             <span></span>
-  //           </div>
-  //     </>
-  //   );
-  // } else {
+  console.log(data);
+  if (isLoadingList===true) {
+    return (
+      <>
+        <h2 className="text-center">Хиты продаж!</h2>
+            <div className="preloader">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+      </>
+    );
+  } else {
   return (
     <>
       <h2 className="text-center">Хиты продаж!</h2>
       <div className="row">
-        {list.map((product, id) => (
+        {data.map((product, id) => (
           <div key={id} className="col-4">
             <div className="card">
               <img
@@ -50,4 +50,4 @@ export default function TopSales() {
     </>
   );
 }
-// }
+}

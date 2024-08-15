@@ -13,9 +13,9 @@ export const sliceMagRTK = createApi({
         result
           ? [
               ...result.map(({ id }) => ({ type: "Products", id })),
-              { type: "Products", id: "LIST" },
+              { type: "Products", id: 1 },
             ]
-          : [{ type: "Products", id: "LIST" }],
+          : [{ type: "Products", id: 1 }],
     }),
     getCat: build.query({
       query: () => "categories",
@@ -40,6 +40,12 @@ export const sliceMagRTK = createApi({
             ]
           : [{ type: "Products", id: "LIST" }],
     }),
+    getGoodsAll: build.mutation({
+      query: (id) => ({
+        url: `items?categoryId=${id}`,
+        method: "GET",
+      }),
+    }),
     // addProduct: build.mutation({
     //   query: (body) => ({
     //     url: "goods",
@@ -62,6 +68,7 @@ export const {
   useGetTopSalesQuery,
   useGetCatQuery,
   useGetGoodsMutation,
+  useGetGoodsAllMutation,
   useAddProductMutation,
   useDeleteProductMutation,
 } = sliceMagRTK;

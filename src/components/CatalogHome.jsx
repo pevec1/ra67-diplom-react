@@ -2,31 +2,45 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useGetCatQuery, useGetGoodsMutation } from "../slices/sliceMagRTK";
+import { useGetCatQuery, useGetGoodsMutation, useGetGoodsAllMutation } from "../slices/sliceMagRTK";
 
 export default function CatalogHome() {
   const [count, setCount] = useState("");
-  const { list = [], isLoadingList } = useGetCatQuery(count);
+  const { data = [], isLoadingList } = useGetCatQuery(count);
   const [products, setProducts] = useState([]);
   const [cat, setCat] = useState([]);
-  const { data = [], isLoading } = useGetGoodsMutation(cat);
+  const [getGoods, isLoading] = useGetGoodsMutation();
+  const [getGoodsAll, isLoading2] = useGetGoodsAllMutation();
 
-  console.log(list);
-  list.map((product) =>
-    [product.id].forEach((element, key) => {
-      console.log(element, key);
+  const onClick = async (e, id) => {
+    e.preventDefault();
+    try {
+      const data = await getGoods(id).unwrap();
 
-      setCat(element);
-    })
-  );
-  console.log(cat);
+      console.log(data);
+      setProducts(data); // handle result here
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError); // handle error here
+    }
+  }; // console.log(getGoods);
+  const onClickAll = async (id) => {
+    try {
+      const data = await getGoodsAll(id).unwrap();
+
+      console.log(data);
+      setProducts(data); // handle result here
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError); // handle error here
+    }
+  }; // console.log(getGoods);
   console.log(data);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     //setCategory(categories.map((cat) => {fetchCategory1(cat.id)}));
-  //   }, 2000)
-
-  // }, []);
+  function randomIntFromInterval(min, max) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  useEffect(() => {
+      onClickAll(randomIntFromInterval(12, 15));
+  }, []);
 
   if (isLoading === true) {
     return (
@@ -34,27 +48,27 @@ export default function CatalogHome() {
         <h2 className="text-center">Каталог</h2>
         <ul className="catalog-categories nav justify-content-center">
           <li className="nav-item">
-            <a className="nav-link active" data-cat="all" href="/">
+            <a className="nav-link active" data-cat="all" href="#">
               Все
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 13)} href="#">
               Женская обувь
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 12)} href="#">
               Мужская обувь
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 14)} href="#">
               Обувь унисекс
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 15)} href="#">
               Детская обувь
             </a>
           </li>
@@ -73,33 +87,38 @@ export default function CatalogHome() {
         <h2 className="text-center">Каталог</h2>
         <ul className="catalog-categories nav justify-content-center">
           <li className="nav-item">
-            <a className="nav-link active" data-cat="all" href="#">
+            <a
+              className="nav-link active"
+              data-cat="all"
+              onClick={(e) => onClick(e, 12, 13, 14, 15)}
+              href="#"
+            >
               Все
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 13)} href="#">
               Женская обувь
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 12)} href="#">
               Мужская обувь
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 14)} href="#">
               Обувь унисекс
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" onClick={(e) => onClick(e, 15)} href="#">
               Детская обувь
             </a>
           </li>
         </ul>
         <div className="row">
-          {data.map((product, id) => (
+          {products.map((product, id) => (
             <div key={id} className="col-4">
               <div className="card">
                 <img
