@@ -22,7 +22,7 @@ function App() {
         <Route path="/ra67-diplom-react/contact" element={<Contact />} />
         <Route path="/ra67-diplom-react/product/:id" element={<Product />} />
         <Route path="/ra67-diplom-react/favorites" element={<Favorites />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/ra67-diplom-react/*" element={<NotFound />} />
       </Routes>
       <Footer />
     </Router>

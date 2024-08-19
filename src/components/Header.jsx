@@ -10,7 +10,7 @@ export default function Header() {
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
             <Link className="navbar-brand" to="/ra67-diplom-react/">
               <img
-                src="/ra67-diplom-react/src/img/header-logo.png"
+                src="https:/pevec1.github.io/ra67-diplom-react/img/header-logo.png"
                 alt="Bosa Noga"
               />
             </Link>

@@ -7,7 +7,7 @@ export default function NotFound() {
         <div className="col">
           <div className="banner">
             <img
-              src="/ra67-diplom-react/src/img/banner.jpg"
+              src="https:/pevec1.github.io/ra67-diplom-react/img/banner.jpg"
               className="img-fluid"
               alt="К весне готовы!"
             />
