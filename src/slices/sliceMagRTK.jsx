@@ -41,8 +41,14 @@ export const sliceMagRTK = createApi({
           : [{ type: "Products", id: "LIST" }],
     }),
     getGoodsAll: build.mutation({
-      query: (id) => ({
-        url: `items?categoryId=${id}`,
+      query: () => ({
+        url: `items`,
+        method: "GET",
+      }),
+    }),
+    getGoodsAllOffset: build.mutation({
+      query: ({ offset }) => ({
+        url: `items?offset=${offset}`,
         method: "GET",
       }),
     }),
@@ -69,6 +75,7 @@ export const {
   useGetCatQuery,
   useGetGoodsMutation,
   useGetGoodsAllMutation,
+  useGetGoodsAllOffsetMutation,
   useAddProductMutation,
   useDeleteProductMutation,
 } = sliceMagRTK;

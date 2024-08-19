@@ -2,15 +2,18 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useGetCatQuery, useGetGoodsMutation, useGetGoodsAllMutation } from "../slices/sliceMagRTK";
+import { useGetCatQuery, useGetGoodsMutation, useGetGoodsAllMutation, useGetGoodsAllOffsetMutation } from "../slices/sliceMagRTK";
 
 export default function CatalogHome() {
+  const [offset, setOffset] = useState(6);
+  const [another, setAnother] = useState(true);
   const [count, setCount] = useState("");
   const { data = [], isLoadingList } = useGetCatQuery(count);
   const [products, setProducts] = useState([]);
   const [cat, setCat] = useState([]);
   const [getGoods, isLoading] = useGetGoodsMutation();
   const [getGoodsAll, isLoading2] = useGetGoodsAllMutation();
+  const [getGoodsAllOffset, isLoading3] = useGetGoodsAllOffsetMutation();
   const [isActive, setIsActive] = useState(0);
   function randomIntFromInterval(min, max) {
     // min and max included
@@ -28,9 +31,9 @@ export default function CatalogHome() {
       console.log(rejectedValueOrSerializedError); // handle error here
     }
   }; // console.log(getGoods);
-  const onClickAll = async (id) => {
+  const onClickAll = async () => {
    try {
-      const data = await getGoodsAll(id).unwrap();
+      const data = await getGoodsAll().unwrap();
 
       console.log(data);
       setProducts(data); // handle result here
@@ -38,9 +41,25 @@ export default function CatalogHome() {
       console.log(rejectedValueOrSerializedError); // handle error here
     }
   }; // console.log(getGoods);
+  const onClickAllOffset = async (e, offset, title) => {
+    e.preventDefault();
+    setIsActive(title);
+    setOffset(offset + 6);
+   try {
+      const data = await getGoodsAllOffset({offset: offset}).unwrap();
+
+      console.log(data);
+      if (data.length < 6) {
+        setAnother(false);
+      }
+      setProducts([...products, ...data]); // handle result here
+    } catch (rejectedValueOrSerializedError) {
+      console.log(rejectedValueOrSerializedError); // handle error here
+    }
+  }; // console.log(getGoods);
   console.log(data);
    useEffect(() => {
-      onClickAll(randomIntFromInterval(12, 15));
+      onClickAll();
   }, []);
 
   if (isLoading === true) {
@@ -64,10 +83,10 @@ export default function CatalogHome() {
             <a
               className={"nav-link" + `${isActive === "all" && " active"}`}
               data-cat="all"
-              onClick={(e) => onClick(e, randomIntFromInterval(12, 15), "all")}
+              onClick={(e) => onClickAll(e, "all")}
               href="#"
             >
-               Все 
+              Все
             </a>
           </li>
           {data.map((cat, id) => (
@@ -79,7 +98,7 @@ export default function CatalogHome() {
                 onClick={(e) => onClick(e, cat.id, cat.title)}
                 href="#"
               >
-                 {cat.title} 
+                {cat.title}
               </a>
             </li>
           ))}
@@ -106,6 +125,16 @@ export default function CatalogHome() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="text-center">
+          {another === false ? null : (
+            <button
+              className="btn btn-outline-primary"
+              onClick={(e) => onClickAllOffset(e, offset, "all")}
+            >
+              Загрузить ещё
+            </button>
+          )}
         </div>
       </>
     );
