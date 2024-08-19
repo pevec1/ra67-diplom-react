@@ -16,12 +16,12 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/product/:id" element={<Product />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/ra67-diplom-react/" element={<Home />} />
+        <Route path="/ra67-diplom-react/catalog" element={<Catalog />} />
+        <Route path="/ra67-diplom-react/about" element={<About />} />
+        <Route path="/ra67-diplom-react/contact" element={<Contact />} />
+        <Route path="/ra67-diplom-react/product/:id" element={<Product />} />
+        <Route path="/ra67-diplom-react/favorites" element={<Favorites />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

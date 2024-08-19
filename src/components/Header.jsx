@@ -7,28 +7,31 @@ export default function Header() {
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
-            <a className="navbar-brand" href="/">
-              <img src="../src/img/header-logo.png" alt="Bosa Noga" />
+            <a className="navbar-brand" href="/ra67-diplom-react/">
+              <img
+                src="/ra67-diplom-react/src/img/header-logo.png"
+                alt="Bosa Noga"
+              />
             </a>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="/">
+                  <a className="nav-link" href="/ra67-diplom-react/">
                     Главная
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/catalog">
+                  <a className="nav-link" href="/ra67-diplom-react/catalog">
                     Каталог
                   </a>
                 </li>
                 <li className="nav-item active">
-                  <a className="nav-link" href="/about">
+                  <a className="nav-link" href="/ra67-diplom-react/about">
                     О магазине
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/contact">
+                  <a className="nav-link" href="/ra67-diplom-react/contact">
                     Контакты
                   </a>
                 </li>

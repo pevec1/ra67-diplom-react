@@ -10,17 +10,17 @@ export default function Footer() {
             <h5>Информация</h5>
             <ul className="nav flex-column">
               <li className="nav-item">
-                <a href="/about" className="nav-link">
+                <a href="/ra67-diplom-react/about" className="nav-link">
                   О магазине
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/catalog" className="nav-link">
+                <a href="/ra67-diplom-react/catalog" className="nav-link">
                   Каталог
                 </a>
               </li>
               <li className="nav-item">
-                <a href="/contact" className="nav-link">
+                <a href="/ra67-diplom-react/contact" className="nav-link">
                   Контакты
                 </a>
               </li>
