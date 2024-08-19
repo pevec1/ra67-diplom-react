@@ -7,7 +7,7 @@ export default function Contact() {
         <div className="col">
           <div className="banner">
             <img
-              src="https://github.com/pevec1/ra67-diplom-react/blob/main/img/banner.png?raw=true"
+              src="https://github.com/pevec1/ra67-diplom-react/blob/main/img/banner.jpg?raw=true"
               className="img-fluid"
               alt="К весне готовы!"
             />
