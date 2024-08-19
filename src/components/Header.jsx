@@ -1,5 +1,6 @@
 import "../style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -7,33 +8,33 @@ export default function Header() {
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
-            <a className="navbar-brand" href="/ra67-diplom-react/">
+            <Link className="navbar-brand" to="/ra67-diplom-react/">
               <img
                 src="/ra67-diplom-react/src/img/header-logo.png"
                 alt="Bosa Noga"
               />
-            </a>
+            </Link>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <a className="nav-link" href="/ra67-diplom-react/">
+                  <Link className="nav-link" to="/ra67-diplom-react/">
                     Главная
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/ra67-diplom-react/catalog">
+                  <Link className="nav-link" to="/ra67-diplom-react/catalog">
                     Каталог
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item active">
-                  <a className="nav-link" href="/ra67-diplom-react/about">
+                  <Link className="nav-link" to="/ra67-diplom-react/about">
                     О магазине
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/ra67-diplom-react/contact">
+                  <Link className="nav-link" to="/ra67-diplom-react/contact">
                     Контакты
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <div>

@@ -1,5 +1,6 @@
 import "../style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -10,19 +11,19 @@ export default function Footer() {
             <h5>Информация</h5>
             <ul className="nav flex-column">
               <li className="nav-item">
-                <a href="/ra67-diplom-react/about" className="nav-link">
+                <Link to="/ra67-diplom-react/about" className="nav-link">
                   О магазине
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a href="/ra67-diplom-react/catalog" className="nav-link">
+                <Link to="/ra67-diplom-react/catalog" className="nav-link">
                   Каталог
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a href="/ra67-diplom-react/contact" className="nav-link">
+                <Link to="/ra67-diplom-react/contact" className="nav-link">
                   Контакты
-                </a>
+                </Link>
               </li>
             </ul>
           </section>
