@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { sliceMagRTK } from "../slices/sliceMagRTK";
+import { api } from "../slices/api";
 
 export const store = configureStore({
   reducer: {
-    [sliceMagRTK.reducerPath]: sliceMagRTK.reducer,
+    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(sliceMagRTK.middleware),
+    getDefaultMiddleware().concat(api.middleware),
 });
 
 setupListeners(store.dispatch);

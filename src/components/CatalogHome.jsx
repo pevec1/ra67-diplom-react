@@ -2,86 +2,71 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
-import { useGetCatQuery, useGetGoodsMutation, useGetGoodsAllMutation, useGetGoodsAllOffsetMutation } from "../slices/sliceMagRTK";
+import { api, useGetCatQuery, useGetGoodsMutation, useGetGoodsAllMutation, useGetGoodsAllOffsetMutation } from "../slices/api";
 
 export default function CatalogHome() {
-  const [offset, setOffset] = useState(6);
+  const dispatch = useDispatch();
+const [offset, setOffset] = useState(6);
   const [another, setAnother] = useState(true);
   const [count, setCount] = useState("");
-  const { data = [], isLoadingList } = useGetCatQuery(count);
-  const [products, setProducts] = useState([]);
-  const [cat, setCat] = useState([]);
-  const [getGoods, isLoading] = useGetGoodsMutation();
-  const [getGoodsAll, isLoading2] = useGetGoodsAllMutation();
-  const [getGoodsAllOffset, isLoading3] = useGetGoodsAllOffsetMutation();
+  const { data = [], error, isLoading } = useGetCatQuery(count);
+  const { data: data2 = [], refetch: refetch2,error: error2, isLoading: isLoading2 } = useGetGoodsMutation();
+  const { data: data3 = [], refetch: refetch3, error: error3, isLoading: isLoading3 } = useGetGoodsAllMutation();
+  const { data:data4 = [], refetch: refetch4, error: error4, isLoading: isLoading4 } = useGetGoodsAllOffsetMutation();
   const [isActive, setIsActive] = useState(0);
-  function randomIntFromInterval(min, max) {
+
+    function randomIntFromInterval(min, max) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
  const onClick = async (e, id, title) => {
     e.preventDefault();
     setIsActive(title);
-    try {
-      const data = await getGoods(id).unwrap();
-
-      console.log(data);
-      setProducts(data); // handle result here
-    } catch (rejectedValueOrSerializedError) {
-      console.log(rejectedValueOrSerializedError); // handle error here
-    }
+    refetch2({id: id});
   }; // console.log(getGoods);
-  const onClickAll = async () => {
-   try {
-      const data = await getGoodsAll().unwrap();
-
-      console.log(data);
-      setProducts(data); // handle result here
-    } catch (rejectedValueOrSerializedError) {
-      console.log(rejectedValueOrSerializedError); // handle error here
-    }
+  const onClickAll = async (e, title) => {
+   setIsActive(title);
+refetch3()
   }; // console.log(getGoods);
   const onClickAllOffset = async (e, offset, title) => {
     e.preventDefault();
     setIsActive(title);
     setOffset(offset + 6);
-   try {
-      const data = await getGoodsAllOffset({offset: offset}).unwrap();
-
-      console.log(data);
+dispatch(
+  api.endpoints.getGoodsAllOffset.initiate(
+    { offset: offset },
+    { subscribe: false, forceRefetch: true }
+  )
+);
       if (data.length < 6) {
         setAnother(false);
-      }
-      setProducts([...products, ...data]); // handle result here
-    } catch (rejectedValueOrSerializedError) {
-      console.log(rejectedValueOrSerializedError); // handle error here
-    }
+      }// handle result here
   }; // console.log(getGoods);
-  console.log(data);
+  console.log(data, data2, data3, data4);
    useEffect(() => {
       onClickAll();
   }, []);
 
-  if (isLoading === true) {
-    return (
+  return (
       <>
         <h2 className="text-center">Каталог</h2>
-        <div className="preloader">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <h2 className="text-center">Каталог</h2>
+        {error ? (
+          <>Oh no, there was an error</>
+        ) : isLoading ? (
+          <>
+            <div className="preloader">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </>
+        ) : (
+          <>
         <ul className="catalog-categories nav justify-content-center">
           <li className="nav-item">
             <a
-              className={"nav-link" + `${isActive === "all" && " active"}`}
+              className={"nav-link " + `${(isActive === "all") ? " active" : ""}`}
               data-cat="all"
               onClick={(e) => onClickAll(e, "all")}
               href="#"
@@ -93,7 +78,7 @@ export default function CatalogHome() {
             <li key={id} className="nav-item">
               <a
                 className={
-                  "nav-link" + `${isActive === cat.title && " active"}`
+                  "nav-link" + `${(isActive === cat.title) ? " active" : ""}`
                 }
                 onClick={(e) => onClick(e, cat.id, cat.title)}
                 href="#"
@@ -104,7 +89,7 @@ export default function CatalogHome() {
           ))}
         </ul>
         <div className="row">
-          {products.map((product, id) => (
+          {data4.map((product, id) => (
             <div key={id} className="col-4">
               <div className="card">
                 <img
@@ -137,6 +122,7 @@ export default function CatalogHome() {
           )}
         </div>
       </>
-    );
-  }
+        )}
+      </>
+  );
 }

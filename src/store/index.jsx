@@ -1,2 +1,2 @@
-export * from "../slices/sliceMagRTK";
+export * from "../slices/api";
 export * from "./store";

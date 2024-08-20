@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const sliceMagRTK = createApi({
-  reducerPath: "sliceMagRTK",
+export const api = createApi({
+  reducerPath: "api",
   tagTypes: ["Products", "Categories"],
   baseQuery: fetchBaseQuery({
     baseUrl: "https://backdiplomra67.axareact.ru/api/",
@@ -78,4 +78,4 @@ export const {
   useGetGoodsAllOffsetMutation,
   useAddProductMutation,
   useDeleteProductMutation,
-} = sliceMagRTK;
+} = api;
