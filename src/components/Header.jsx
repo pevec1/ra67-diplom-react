@@ -1,6 +1,6 @@
 import "../style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -8,33 +8,33 @@ export default function Header() {
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
-            <Link className="navbar-brand" to="/ra67-diplom-react/">
+            <NavLink className="navbar-brand" to="/ra67-diplom-react/">
               <img
                 src="https://github.com/pevec1/ra67-diplom-react/blob/main/img/header-logo.png?raw=true"
                 alt="Bosa Noga"
               />
-            </Link>
+            </NavLink>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/ra67-diplom-react/">
+                  <NavLink className="nav-link" to="/ra67-diplom-react/">
                     Главная
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/ra67-diplom-react/catalog">
+                  <NavLink className="nav-link" to="/ra67-diplom-react/catalog">
                     Каталог
-                  </Link>
-                </li>
-                <li className="nav-item active">
-                  <Link className="nav-link" to="/ra67-diplom-react/about">
-                    О магазине
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/ra67-diplom-react/contact">
+                  <NavLink className="nav-link" to="/ra67-diplom-react/about">
+                    О магазине
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/ra67-diplom-react/contact">
                     Контакты
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
               <div>

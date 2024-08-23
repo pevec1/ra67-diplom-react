@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
+  keepUnusedDataFor: 60,
   tagTypes: ["Products", "Categories"],
   baseQuery: fetchBaseQuery({
     baseUrl: "https://backdiplomra67.axareact.ru/api/",
@@ -16,6 +17,7 @@ export const api = createApi({
               { type: "Products", id: 1 },
             ]
           : [{ type: "Products", id: 1 }],
+      keepUnusedDataFor: 10,
     }),
     getCat: build.query({
       query: () => "categories",
@@ -26,6 +28,7 @@ export const api = createApi({
               { type: "Categories", id: "LIST" },
             ]
           : [{ type: "Categories", id: "LIST" }],
+      keepUnusedDataFor: 10,
     }),
     getGoods: build.mutation({
       query: (id) => ({
@@ -43,6 +46,12 @@ export const api = createApi({
     getGoodsAll: build.mutation({
       query: () => ({
         url: `items`,
+        method: "GET",
+      }),
+    }),
+    getGoodsOffset: build.mutation({
+      query: ({ categoryId, offset }) => ({
+        url: `items?categoryId=${categoryId}&offset=${offset}`,
         method: "GET",
       }),
     }),
@@ -75,6 +84,7 @@ export const {
   useGetCatQuery,
   useGetGoodsMutation,
   useGetGoodsAllMutation,
+  useGetGoodsOffsetMutation,
   useGetGoodsAllOffsetMutation,
   useAddProductMutation,
   useDeleteProductMutation,
