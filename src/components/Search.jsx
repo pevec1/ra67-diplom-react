@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react'
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchSearch } from './../slices/searchSlice';
 
 export default function Search() {
      const [text, setText] = useState("");
 const [valtext, setVal] = useState("");
+  const input = useRef(null);
+    const list = useSelector((state) => state.search);
+ 
     const dispatch = useDispatch();
           const fetchOneUser = async () => {
             try {
