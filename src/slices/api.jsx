@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "api",
   keepUnusedDataFor: 60,
-  tagTypes: ["Products", "Categories"],
+  tagTypes: ["Products", "Categories", "Search"],
   baseQuery: fetchBaseQuery({
     baseUrl: "https://backdiplomra67.axareact.ru/api/",
   }),
@@ -61,6 +61,7 @@ export const api = createApi({
         method: "GET",
       }),
     }),
+
     // addProduct: build.mutation({
     //   query: (body) => ({
     //     url: "goods",

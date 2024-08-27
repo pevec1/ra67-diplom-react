@@ -3,7 +3,8 @@ import React from 'react'
 import CatalogHome from "../components/CatalogHome";
 
 export default function Catalog() {
-  return (
+
+   return (
     <main className="container">
       <div className="row">
         <div className="col">
@@ -15,7 +16,6 @@ export default function Catalog() {
             />
             <h2 className="banner-header">К весне готовы!</h2>
           </div>
-
           <CatalogHome />
         </div>
       </div>
