@@ -11,10 +11,9 @@ import {
 } from "../slices/api";
 import Search from "../components/Search";
 
-
 export default function CatalogHome() {
   const dispatch = useDispatch();
-    const list = useSelector((state) => state.search);
+  const list = useSelector((state) => state.search);
   const [id, setId] = useState(0);
   const [offset, setOffset] = useState(6);
   const [another, setAnother] = useState(true);
@@ -70,7 +69,7 @@ export default function CatalogHome() {
   }; // console.log(getGoods);
   useEffect(() => {
     onClickAll();
-   }, []);
+  }, []);
   console.log(data, data2, data3, data4, data5, list);
   console.log(isActive);
 
