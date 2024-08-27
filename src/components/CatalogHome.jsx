@@ -37,7 +37,6 @@ export default function CatalogHome() {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
- console.log(text)
   const onClick = async (e, id, title) => {
     e.preventDefault();
     setIsActive(title);
