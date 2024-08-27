@@ -13,7 +13,7 @@ const [valtext, setVal] = useState("");
     const list = useSelector((state) => state.search);
  
     const dispatch = useDispatch();
-          const fetchOneUser = async () => {
+          const fetchOneUser = async (valtext) => {
             try {
               const data = await dispatch(fetchSearch(valtext)).unwrap();
               console.log("success", data);
@@ -21,14 +21,15 @@ const [valtext, setVal] = useState("");
               console.log("error", `Fetch failed: ${err.message}`);
             }
           };
-          useEffect(() => {
-            fetchOneUser();
-          }, [valtext]);
+        //   useEffect(() => {
+        //     fetchOneUser();
+        //   }, []);
 
-     const onSubmit = (event) => {
+     const onSubmit = (event, text) => {
        event.preventDefault();
        console.log(event);
-       setText({ text: event.target[0].value });
+       setVal(text);
+       fetchOneUser(valtext);
      }
 
   return (
@@ -36,8 +37,8 @@ const [valtext, setVal] = useState("");
       <input
         className="form-control"
         placeholder="Поиск"
-        onChange={(e) => setVal(e.target.value)}
-        value={valtext}
+        onChange={(e) => setText(e.target.value)}
+        value={text}
       />
     </form>
   );
