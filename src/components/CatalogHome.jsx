@@ -4,73 +4,88 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   api,
   useGetCatQuery,
-  useGetGoodsMutation,
-  useGetGoodsAllMutation,
-  useGetGoodsOffsetMutation,
-  useGetGoodsAllOffsetMutation,
+  useGetGoodsQuery,
+  useGetGoodsAllQuery,
+  useGetGoodsAllOffsetQuery,
+  useGetGoodsOffsetQuery,
+  useGetGoodsOffsetSearchQuery,
+  useGetGoodsAllOffsetSearchQuery,
 } from "../slices/api";
 import Search from "../components/Search";
+import { fetchSearch } from "../store";
 
 export default function CatalogHome() {
   const dispatch = useDispatch();
+  const [arr, setArr] = useState([]);
   const list = useSelector((state) => state.search);
   const [id, setId] = useState(0);
   const [offset, setOffset] = useState(6);
   const [another, setAnother] = useState(true);
   const [count, setCount] = useState("");
   const { data = [], error, isLoading } = useGetCatQuery(count);
-  const [getGoods, { error: error2, isLoading: isLoading2 }] =
-    useGetGoodsMutation();
-  const [data2, setData2] = useState([]);
-  const [getGoodsAll, { error: error3, isLoading: isLoading3 }] =
-    useGetGoodsAllMutation();
-  const [data3, setData3] = useState([]);
-  const [getGoodsAllOffset, { error: error4, isLoading: isLoading4 }] =
-    useGetGoodsAllOffsetMutation();
-  const [data4, setData4] = useState([]);
-  const [getGoodsOffset, { error: error5, isLoading: isLoading5 }] =
-    useGetGoodsOffsetMutation();
-  const [data5, setData5] = useState([]);
+  const { data:data2 = [], error: error2, isLoading: isLoading2 } =
+    useGetGoodsQuery(id);
+  const { data: data3 = [], error: error3, isLoading: isLoading3 } =
+    useGetGoodsAllQuery();
+  const {
+    data: data4 = [],
+    error: error4,
+    isLoading: isLoading4,
+  } = useGetGoodsAllOffsetQuery({ offset });
+  const {
+    data: data5 = [],
+    error: error5,
+    isLoading: isLoading5,
+  } = useGetGoodsOffsetQuery({ categoryId: id, offset });
   const [isActive, setIsActive] = useState("all");
   function randomIntFromInterval(min, max) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
   const onClick = async (e, id, title) => {
     e.preventDefault();
     setIsActive(title);
-    const data2 = await getGoods(id);
-    setData3(data2.data);
+    setArr(data2);
   }; // console.log(getGoods);
   const onClickAll = async () => {
     setIsActive("all");
     setAnother(true);
-    const data3 = await getGoodsAll();
-    setData3(data3.data);
+    setArr(data3);
   }; // console.log(getGoods);
   console.log(data);
   console.log(id, offset);
   const onClickAllOffset = async (e, offset) => {
     e.preventDefault();
     setOffset(offset + 6);
+    setArr(data4);
     //  data.find((el) => {
     //    el.title.trim().toLowerCase() === isActive.trim().toLowerCase() || 0;
     //    setId(el.id || 0);
     //  });
     // console.log(data, offset, id, isActive);
 
-    const data6 = await getGoodsAllOffset({ offset: offset });
-    setData3([...data3, ...data6.data]);
-    if (data6.data.length < 6) {
+    if (data2.length < 6) {
       setAnother(false);
     } else {
       setAnother(true);
     } // handle result here
   }; // console.log(getGoods);
   useEffect(() => {
-    onClickAll();
-  }, []);
-  console.log(data, data2, data3, data4, data5, list);
+      console.log(localStorage.getItem("search"));
+    if(localStorage.getItem("search")!==""){
+    dispatch(fetchSearch(localStorage.getItem("search")));
+    setArr(list.result);
+      
+    } else {
+      // dispatch(api.endpoints.getGoodsAll.initiate());
+     setIsActive("all");
+     setAnother(true);
+     setArr(data3);
+    }
+   }, []);
+  
+  console.log(data, data2, data3, data4, data5, list, arr, error);
   console.log(isActive);
 
   return (
@@ -118,7 +133,7 @@ export default function CatalogHome() {
             ))}
           </ul>
           <div className="row">
-            {list.result.map((product, id) => (
+            {arr.map((product, id) => (
               <div key={id} className="col-4">
                 <div className="card">
                   <img
@@ -139,28 +154,7 @@ export default function CatalogHome() {
                 </div>
               </div>
             ))}
-            {data3.map((product, id) => (
-              <div key={id} className="col-4">
-                <div className="card">
-                  <img
-                    src={product.images[0]}
-                    className="card-img-top img-fluid"
-                    alt={product.title}
-                  />
-                  <div className="card-body">
-                    <p className="card-text">{product.title}</p>
-                    <p className="card-text">{product.price} руб.</p>
-                    <a
-                      href={"/products/" + product.id}
-                      className="btn btn-outline-primary"
-                    >
-                      Заказать
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+           </div>
           <div className="text-center">
             {another === false ? null : (
               <button

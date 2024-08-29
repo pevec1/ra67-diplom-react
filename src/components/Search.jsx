@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchSearch } from "./../slices/searchSlice";
+import { fetchSearch, setSearch } from "./../slices/searchSlice";
 
 export default function Search() {
   const [text, setText] = useState("");
   const [valtext, setVal] = useState("");
+
   const list = useSelector((state) => state.search);
 
   const dispatch = useDispatch();
@@ -18,15 +19,15 @@ export default function Search() {
       console.log("error", `Fetch failed: ${err.message}`);
     }
   };
-  //   useEffect(() => {
-  //     fetchOneUser();
-  //   }, []);
-
+     useEffect(() => {
+     }, []);
+console.log(list);
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(event);
     fetchOneUser(text);
-    console.log(text);
+        localStorage.setItem("search", text);
+   console.log(text);
   };
 
   return (

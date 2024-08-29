@@ -19,9 +19,15 @@ export const searchSlice = createAppSlice({
   name: "search",
   initialState,
   selectors: {
+    usersSearch: (state) => state.search,
     usersList: (state) => state.result,
+    usersError: (state) => state.error,
+    usersLoading: (state) => state.loading,
   },
   reducers: (create) => ({
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
     fetchSearch: create.asyncThunk(
       async (search, { rejectWithValue }) => {
         try {
@@ -59,5 +65,5 @@ export const searchSlice = createAppSlice({
   }),
 });
 
-export const { fetchSearch } = searchSlice.actions;
+export const { setSearch, fetchSearch } = searchSlice.actions;
 export const searchReducer = searchSlice.reducer;

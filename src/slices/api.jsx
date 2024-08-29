@@ -30,7 +30,7 @@ export const api = createApi({
           : [{ type: "Categories", id: "LIST" }],
       keepUnusedDataFor: 10,
     }),
-    getGoods: build.mutation({
+    getGoods: build.query({
       query: (id) => ({
         url: `items?categoryId=${id}`,
         method: "GET",
@@ -43,21 +43,33 @@ export const api = createApi({
             ]
           : [{ type: "Products", id: "LIST" }],
     }),
-    getGoodsAll: build.mutation({
+    getGoodsAll: build.query({
       query: () => ({
         url: `items`,
         method: "GET",
       }),
     }),
-    getGoodsOffset: build.mutation({
+    getGoodsOffset: build.query({
       query: ({ categoryId, offset }) => ({
         url: `items?categoryId=${categoryId}&offset=${offset}`,
         method: "GET",
       }),
     }),
-    getGoodsAllOffset: build.mutation({
+    getGoodsOffsetSearch: build.query({
+      query: ({ categoryId, offset, search }) => ({
+        url: `items?categoryId=${categoryId}&offset=${offset}&q=${search}`,
+        method: "GET",
+      }),
+    }),
+    getGoodsAllOffset: build.query({
       query: ({ offset }) => ({
         url: `items?offset=${offset}`,
+        method: "GET",
+      }),
+    }),
+    getGoodsAllOffsetSearch: build.query({
+      query: ({ offset, search }) => ({
+        url: `items?offset=${offset}&q=${search}`,
         method: "GET",
       }),
     }),
@@ -83,10 +95,10 @@ export const api = createApi({
 export const {
   useGetTopSalesQuery,
   useGetCatQuery,
-  useGetGoodsMutation,
-  useGetGoodsAllMutation,
-  useGetGoodsOffsetMutation,
-  useGetGoodsAllOffsetMutation,
-  useAddProductMutation,
-  useDeleteProductMutation,
+  useGetGoodsQuery,
+  useGetGoodsAllQuery,
+  useGetGoodsOffsetQuery,
+  useGetGoodsOffsetSearchQuery,
+  useGetGoodsAllOffsetQuery,
+  useGetGoodsAllOffsetSearchQuery,
 } = api;
