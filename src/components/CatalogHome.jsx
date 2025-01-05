@@ -19,8 +19,8 @@ export default function CatalogHome() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [arr, setArr] = useState([]);
-  const list = useSelector((state) => state.search);
+ // const [arr, setArr] = useState();
+  const list = useSelector((state) => state.search.result);
   const [id, setId] = useState(0);
   const [offset, setOffset] = useState(0);
   const [another, setAnother] = useState(true);
@@ -59,27 +59,31 @@ export default function CatalogHome() {
     searchParams.set("q", "");
     setSearchParams(searchParams);
     setIsActive(title);
-    setArr([...arr, ...data5]);
+    setId(id);
   }; // console.log(getGoods);
-  const onClickAll = async () => {
+  const onClickAll = async (e, c) => {
     searchParams.set("q", "");
     setSearchParams(searchParams);
     // dispatch(fetchSearch(""));
-    setIsActive("all");
+    setIsActive(c);
     setAnother(true);
-    setArr(data3);
+    setId(c);
   }; // console.log(getGoods);
   console.log(data);
   console.log(id, offset);
+
   const onClickAllOffset = async (e, offset) => {
     e.preventDefault();
     console.log(offset);
     searchParams.set("q", "");
     setSearchParams(searchParams);
     //dispatch(fetchSearch(""));
-    setOffset(offset);
+    setOffset(offset+6);
     setIsActive("all");
-    setArr([...arr, ...data5]); //setArr(data4);
+    // if (arr === undefined) {
+    //   setArr([]);
+    // }
+    // setArr([...arr,...data4]); //setArr(data4);
     //  data.find((el) => {
     //    el.title.trim().toLowerCase() === isActive.trim().toLowerCase() || 0;
     //    setId(el.id || 0);
@@ -104,14 +108,14 @@ export default function CatalogHome() {
     setSearchParams(searchParams);
     //dispatch(fetchSearch(""));
    // setIsActive("all");
-   setOffset(offset);
+  // setOffset(offset);
     setAnother(true);
-    setArr([...arr, ...data4]);
+    //setArr(data4);
       
     }
   }, [searchParams,data4, offset]);
 
-  console.log(data, data2, data3, data4, data5, list, arr, error);
+  console.log(data, data2, data3, data4, data5, list, error);
   console.log(isActive);
 
   return (
@@ -159,7 +163,7 @@ export default function CatalogHome() {
             ))}
           </ul>
           <div className="row">
-            {(searchParams.get("q") ? list.result : arr).map((product, id) => (
+            {(id === "all" ? data3 : data2).map((product, id) => (
               <div key={id} className="col-4">
                 <div className="card">
                   <img
@@ -185,7 +189,7 @@ export default function CatalogHome() {
             {another === false ? null : (
               <button
                 className="btn btn-outline-primary"
-                onClick={(e) => onClickAllOffset(e, offset+6)}
+                onClick={(e) => onClickAllOffset(e, offset + 6)}
               >
                 Загрузить ещё
               </button>

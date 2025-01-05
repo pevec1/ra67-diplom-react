@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+const backendUrl = import.meta.env && import.meta.env.VITE_BACKEND_URL;
 
 export const api = createApi({
+
   reducerPath: "api",
   keepUnusedDataFor: 60,
   tagTypes: ["Products", "Categories", "Search"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://backdiplomra67.axareact.ru/api/",
+    baseUrl: backendUrl,
   }),
   endpoints: (build) => ({
     getTopSales: build.query({
