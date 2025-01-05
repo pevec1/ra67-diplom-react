@@ -18,7 +18,6 @@ import { fetchSearch } from "../store";
 export default function CatalogHome() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
  // const [arr, setArr] = useState();
  let arr = [];
   const list = useSelector((state) => state.search.result);
