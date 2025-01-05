@@ -60,6 +60,9 @@ export default function CatalogHome() {
     setSearchParams(searchParams);
     setIsActive(title);
     setId(id);
+    const getTabs = document.querySelectorAll("a.nav-link.active");
+    getTabs.forEach((el) => el.classList.remove("active"));
+    e.currentTarget.classList.toggle("active");
   }; // console.log(getGoods);
   const onClickAll = async (e, c) => {
     searchParams.set("q", "");
