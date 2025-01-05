@@ -121,7 +121,6 @@ export default function CatalogHome() {
 
   console.log(data, data2, data3, data4, data5, arr, error);
   console.log(isActive);
-
   return (
     <>
       <h2 className="text-center">Каталог</h2>
@@ -158,7 +157,7 @@ export default function CatalogHome() {
                   className={
                     "nav-link" + `${isActive === cat.title ? " active" : ""}`
                   }
-                  onClick={(e) => onClick(e, cat.id, cat.title )}
+                  onClick={(e) => onClick(e, { id: cat.id, offset: cat.title })}
                   href="#"
                 >
                   {cat.title}
