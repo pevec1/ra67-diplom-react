@@ -20,6 +20,7 @@ export default function CatalogHome() {
   const navigate = useNavigate();
 
  // const [arr, setArr] = useState();
+ let arr = [];
   const list = useSelector((state) => state.search.result);
   const [id, setId] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -54,7 +55,7 @@ export default function CatalogHome() {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  const onClick = async (e, { id, title }) => {
+  const onClick = async (e, id, title ) => {
     e.preventDefault();
     searchParams.set("q", "");
     setSearchParams(searchParams);
@@ -78,8 +79,10 @@ export default function CatalogHome() {
     searchParams.set("q", "");
     setSearchParams(searchParams);
     //dispatch(fetchSearch(""));
-    setOffset(offset+6);
+    setOffset(offset);
     setIsActive("all");
+    setId("0");
+    arr = arr.concat(data4);
     // if (arr === undefined) {
     //   setArr([]);
     // }
@@ -95,6 +98,7 @@ export default function CatalogHome() {
       setOffset(6);
     } else {
       setAnother(true);
+      setOffset(offset + 6);
     } // handle result here
   }; // console.log(getGoods);
 
@@ -115,7 +119,7 @@ export default function CatalogHome() {
     }
   }, [searchParams,data4, offset]);
 
-  console.log(data, data2, data3, data4, data5, list, error);
+  console.log(data, data2, data3, data4, data5, arr, error);
   console.log(isActive);
 
   return (
@@ -154,7 +158,7 @@ export default function CatalogHome() {
                   className={
                     "nav-link" + `${isActive === cat.title ? " active" : ""}`
                   }
-                  onClick={(e) => onClick(e, { id: cat.id, offset: cat.title })}
+                  onClick={(e) => onClick(e, cat.id, cat.title )}
                   href="#"
                 >
                   {cat.title}
@@ -163,7 +167,7 @@ export default function CatalogHome() {
             ))}
           </ul>
           <div className="row">
-            {(id === "all" ? data3 : data2).map((product, id) => (
+            {(id === "all" ? data3 : id === "0" ? arr : data2).map((product, id) => (
               <div key={id} className="col-4">
                 <div className="card">
                   <img
