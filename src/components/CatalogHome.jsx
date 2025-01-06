@@ -18,8 +18,8 @@ import { fetchSearch } from "../store";
 export default function CatalogHome() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
- // const [arr, setArr] = useState();
- let arr = [];
+  const [arr, setArr] = useState([]);
+ //let arr = [];
   const list = useSelector((state) => state.search.result);
   const [id, setId] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -60,6 +60,8 @@ export default function CatalogHome() {
     setSearchParams(searchParams);
     setIsActive(title);
     setId(id);
+    setArr([]);
+    setOffset(0);
   }; // console.log(getGoods);
   const onClickAll = async (e, c) => {
     searchParams.set("q", "");
@@ -68,6 +70,8 @@ export default function CatalogHome() {
     setIsActive(c);
     setAnother(true);
     setId(c);
+    setArr([]);
+    setOffset(0);
   }; // console.log(getGoods);
   console.log(data);
   console.log(id, offset);
@@ -81,7 +85,7 @@ export default function CatalogHome() {
     setOffset(offset);
     setIsActive("all");
     setId("0");
-    arr = arr.concat(data4);
+    setArr((arr) => [...arr, ...data4]);
     // if (arr === undefined) {
     //   setArr([]);
     // }
@@ -106,6 +110,7 @@ export default function CatalogHome() {
     if (searchParams.get("q") && searchParams.get("q") !== "#") {
       dispatch(fetchSearch(searchParams.get("q")));
       setOffset(offset);
+      setId("q");
     } else {
     searchParams.set("q", "");
     setSearchParams(searchParams);
@@ -118,8 +123,8 @@ export default function CatalogHome() {
     }
   }, [searchParams,data4, offset]);
 
-  console.log(data, data2, data3, data4, data5, arr, error);
-  console.log(isActive);
+  console.log(data4, arr);
+  console.log(isActive, list);
 
   return (
     <>
@@ -166,7 +171,7 @@ export default function CatalogHome() {
             ))}
           </ul>
           <div className="row">
-            {(id === "all" ? data3 : id === "0" ? arr : data2).map((product, id) => (
+            {(id === "all" ? data3 : id === "0" ? arr: id === "q" ? list : data2).map((product, id) => (
               <div key={id} className="col-4">
                 <div className="card">
                   <img
