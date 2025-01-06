@@ -7,7 +7,7 @@ const baseUrl = import.meta.env && import.meta.env.VITE_BASE_URL;
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: baseUrl,
+  base: "/ra67-diplom-react/",
   plugins: [react()],
 }
 )
