@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   //<React.StrictMode>
-  <BrowserRouter basename={import.meta.env.VITE_BASE_URL}>
+  <BrowserRouter basename="/ra67-diplom-react/">
   <Provider store={store}>
     <App />
   </Provider>
